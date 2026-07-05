@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Samples</title>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap');
+
+  :root {
+    --bg: #FEFCFA;
+    --card: #FFFFFF;
+    --ink: #332F4D;
+    --ink-soft: #8B86A3;
+    --line: #EDE9F7;
+    --coral: #FF7A59;
+    --pink: #FF5F8F;
+    --purple: #7C6CF6;
+    --blue: #4FACFE;
+    --teal: #12977F;
+    --yellow: #FFC65C;
+    --grad-warm: linear-gradient(135deg, #FF9966 0%, #FF5F8F 100%);
+    --grad-cool: linear-gradient(135deg, #7C6CF6 0%, #4FACFE 100%);
+    --shadow: 0 8px 24px rgba(124,108,246,0.10);
+    font-family: 'Nunito', -apple-system, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { position: relative; overflow-x: hidden; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    margin: 0;
+    padding: 24px;
+    font-family: 'Nunito', -apple-system, sans-serif;
+    line-height: 1.5;
+  }
+
+  .blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(70px);
+    z-index: -1;
+    opacity: 0.35;
+    pointer-events: none;
+  }
+  .blob1 { width: 420px; height: 420px; top: -160px; right: -120px; background: var(--grad-warm); }
+  .blob2 { width: 380px; height: 380px; bottom: -140px; left: -120px; background: var(--grad-cool); }
+  .blob3 { width: 260px; height: 260px; top: 40%; right: 20%; background: var(--yellow); opacity: 0.18; }
+
+  .masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 18px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .masthead h1 {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    letter-spacing: 0.2px;
+    margin: 0;
+    background: var(--grad-warm);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .masthead .sub {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 4px;
+    font-weight: 600;
+  }
+
+  .tally {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .tally-cell {
+    padding: 10px 18px;
+    text-align: left;
+    border-radius: 16px;
+    background: var(--card);
+    box-shadow: var(--shadow);
+    min-width: 100px;
+  }
+
+  .tally-cell .label {
+    display: block;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--ink-soft);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .tally-cell .value {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+  }
+
+  .year-select {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 12.5px;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    background: var(--card);
+    padding: 6px 10px;
+    color: var(--ink);
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 22px;
+    align-items: start;
+  }
+
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 22px;
+    box-shadow: var(--shadow);
+    padding: 22px;
+  }
+
+  .card h2 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0 0 16px 0;
+    color: var(--ink);
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--line);
+  }
+
+  label {
+    display: block;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--ink-soft);
+    font-weight: 700;
+    margin: 14px 0 5px 0;
+  }
+  label.first { margin-top: 0; }
+
+  input[type=text], input[type=date], input[type=number], select, textarea {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1.5px solid var(--ink-soft);
+    border-radius: 12px;
+    background: #FBFAFE;
+    font-size: 13.5px;
+    color: var(--ink);
+    font-family: inherit;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--purple);
+  }
+
+
+  .conditional {
+    margin-top: 12px;
+    padding: 12px 14px;
+    background: #F4F1FE;
+    border-radius: 14px;
+    border-left: 4px solid var(--purple);
+    display: none;
+  }
+  .conditional.show { display: block; }
+  .conditional.rust { border-left-color: var(--pink); background: #FFF0F4; }
+
+  .btn {
+    margin-top: 18px;
+    width: 100%;
+    padding: 12px;
+    background: var(--grad-warm);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 999px;
+    font-size: 13.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    font-family: inherit;
+    box-shadow: 0 6px 16px rgba(255,95,143,0.35);
+    transition: transform 0.15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+
+  .btn-ghost {
+    background: #FFFFFF;
+    color: var(--purple);
+    border: 2px solid var(--purple);
+    margin-top: 10px;
+    box-shadow: none;
+  }
+  .btn-ghost:hover { background: #F4F1FE; transform: none; }
+
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 13px;
+  }
+
+  th {
+    text-align: left;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--ink-soft);
+    font-weight: 800;
+    padding: 8px 10px;
+    border-bottom: 2px solid var(--line);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+
+  tr:hover td { background: #FBFAFE; }
+
+  .brand-cell { font-weight: 800; font-family: 'Quicksand', sans-serif; }
+  .cat-tag {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--purple);
+    background: #F1EDFC;
+    border-radius: 999px;
+    padding: 2px 10px;
+    margin-top: 4px;
+  }
+
+  .pill {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+  .pill-yes { background: #E1F7F2; color: var(--teal); }
+  .pill-no { background: #FDE7ED; color: var(--pink); }
+
+  .gain { color: var(--teal); font-weight: 800; }
+  .loss { color: var(--pink); font-weight: 800; }
+
+  .delete-btn {
+    background: none;
+    border: none;
+    color: var(--ink-soft);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .delete-btn:hover { color: var(--pink); }
+
+  .empty-state {
+    text-align: center;
+    padding: 56px 20px;
+    color: var(--ink-soft);
+  }
+  .empty-state .big {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .toolbar .count { font-size: 12.5px; color: var(--ink-soft); font-weight: 700; }
+
+  .export-btn {
+    font-size: 11.5px;
+    font-weight: 800;
+    padding: 8px 16px;
+    background: var(--grad-cool);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: inherit;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    box-shadow: 0 6px 16px rgba(79,172,254,0.30);
+  }
+  .export-btn:hover { transform: translateY(-1px); }
+
+  .footnote {
+    margin-top: 20px;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    font-weight: 600;
+    background: var(--card);
+    border-radius: 16px;
+    padding: 14px 18px;
+    box-shadow: var(--shadow);
+  }
+
+  ::placeholder { color: #B7B2CC; }
+
+  @media (max-width: 700px) {
+    body { padding: 14px; }
+    .blob1 { width: 260px; height: 260px; top: -100px; right: -90px; }
+    .blob2 { width: 220px; height: 220px; bottom: -90px; left: -90px; }
+    .blob3 { display: none; }
+
+    .masthead { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .masthead h1 { font-size: 25px; }
+    .masthead .sub { font-size: 12px; }
+
+    .tally { width: 100%; gap: 8px; }
+    .tally-cell { flex: 1 1 calc(50% - 4px); min-width: 0; padding: 9px 12px; }
+    .tally-cell .value { font-size: 16px; }
+
+    .card { padding: 16px; border-radius: 18px; }
+
+    .toolbar { flex-wrap: wrap; gap: 10px; }
+
+    /* Card-style table for small screens */
+    table, thead, tbody, tr { display: block; width: 100%; }
+    thead { display: none; }
+    tbody tr {
+      margin-bottom: 12px;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 4px 0;
+      background: var(--card);
+    }
+    tbody tr:hover td { background: none; }
+    td {
+      display: block;
+      text-align: right;
+      padding: 7px 14px;
+      border-bottom: 1px dashed var(--line);
+    }
+    td:last-child { border-bottom: none; }
+    td::before {
+      content: attr(data-label);
+      float: left;
+      font-weight: 800;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--ink-soft);
+    }
+    td.cell-brand { text-align: left; padding-top: 12px; }
+    td.cell-brand::before { content: none; }
+    td.cell-actions { text-align: center; padding-bottom: 12px; }
+    td.cell-actions::before { content: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+
+<div class="masthead">
+  <div>
+    <h1>Free Sample Ledger</h1>
+    <div class="sub">Amazon Influencer &middot; received-item tracking for organization &amp; tax records</div>
+  </div>
+  <div class="tally" id="tallyBar">
+    <!-- filled by JS -->
+  </div>
+</div>
+
+<div class="layout">
+
+  <div class="card" id="formCard">
+    <h2 id="formTitle">Log a New Sample</h2>
+    <form id="entryForm">
+      <label class="first">Brand *</label>
+      <input type="text" id="f_brand" placeholder="e.g. Anker" required>
+
+      <label>Product / description *</label>
+      <input type="text" id="f_product" placeholder="e.g. 20W USB-C fast charger">
+
+      <label>ASIN or product link</label>
+      <input type="text" id="f_asin" placeholder="B0XXXXXXXX or URL">
+
+      <label>Amazon category *</label>
+      <input type="text" id="f_category" placeholder="e.g. Electronics > Chargers" required>
+
+      <label>Date received *</label>
+      <input type="date" id="f_date" required>
+
+      <label>Value received (FMV, $) *</label>
+      <input type="number" step="0.01" min="0" id="f_value" placeholder="0.00" required>
+
+      <label>Open to further collaborations?</label>
+      <select id="f_collab">
+        <option value="unknown">Not sure yet</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+
+      <div class="conditional" id="collabBox">
+        <label class="first">Sold anywhere besides Amazon?</label>
+        <input type="text" id="f_elsewhere" placeholder="e.g. Brand site, Target — or leave blank">
+      </div>
+
+      <label>Sponsor / PR agency (if different from brand)</label>
+      <input type="text" id="f_sponsor" placeholder="optional">
+
+      <label>Resold this item?</label>
+      <select id="f_resold">
+        <option value="no">No</option>
+        <option value="yes">Yes</option>
+      </select>
+
+      <div class="conditional rust" id="resoldBox">
+        <label class="first">Resale date</label>
+        <input type="date" id="f_resaleDate">
+        <label>Resale amount ($)</label>
+        <input type="number" step="0.01" min="0" id="f_resaleAmount" placeholder="0.00">
+      </div>
+
+      <label>Notes</label>
+      <textarea id="f_notes" rows="2" placeholder="optional — e.g. damaged, personal use, etc."></textarea>
+
+      <button type="submit" class="btn" id="submitBtn">Add Entry</button>
+      <button type="button" class="btn btn-ghost" id="cancelEdit" style="display:none;">Cancel Edit</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <div class="toolbar">
+      <span class="count" id="entryCount">Loading…</span>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <select class="year-select" id="filterYear"><option value="all">All years</option></select>
+        <button class="export-btn" id="exportBtn">Export CSV</button>
+      </div>
+    </div>
+    <div id="tableWrap">
+      <div class="empty-state">Loading your ledger…</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footnote">
+  Free samples are generally treated as taxable barter income at fair market value on the date received.
+  If an item is later resold, the sale price above that already-reported value is typically a taxable gain.
+  This tool is for organizing your own records — check with a tax professional for how to report it.
+</div>
+
+<script>
+let entries = [];
+let editingId = null;
+
+async function loadEntries() {
+  try {
+    const res = await fetch('/api/entries');
+    if (!res.ok) throw new Error('Failed to load');
+    entries = await res.json();
+  } catch (e) {
+    console.error('Load failed', e);
+    entries = [];
+    document.getElementById('tableWrap').innerHTML =
+      `<div class="empty-state"><div class="big">Couldn't load the ledger</div><div>Check your connection and refresh.</div></div>`;
+    return;
+  }
+  render();
+}
+
+async function upsertEntry(entry) {
+  const res = await fetch('/api/entries', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(entry)
+  });
+  if (!res.ok) throw new Error('Save failed');
+}
+
+async function deleteEntryRemote(id) {
+  const res = await fetch(`/api/entries?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
+  if (!res.ok) throw new Error('Delete failed');
+}
+
+function fmtMoney(n) {
+  const num = Number(n) || 0;
+  const sign = num < 0 ? '-' : '';
+  return sign + '$' + Math.abs(num).toFixed(2);
+}
+
+function fmtDate(d) {
+  if (!d) return '—';
+  const dt = new Date(d + 'T00:00:00');
+  return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+document.getElementById('f_collab').addEventListener('change', (e) => {
+  document.getElementById('collabBox').classList.toggle('show', e.target.value === 'yes');
+});
+document.getElementById('f_resold').addEventListener('change', (e) => {
+  document.getElementById('resoldBox').classList.toggle('show', e.target.value === 'yes');
+});
+
+document.getElementById('cancelEdit').addEventListener('click', () => {
+  resetForm();
+});
+
+function resetForm() {
+  document.getElementById('entryForm').reset();
+  document.getElementById('collabBox').classList.remove('show');
+  document.getElementById('resoldBox').classList.remove('show');
+  editingId = null;
+  document.getElementById('formTitle').textContent = 'Log a New Sample';
+  document.getElementById('submitBtn').textContent = 'Add Entry';
+  document.getElementById('cancelEdit').style.display = 'none';
+}
+
+document.getElementById('entryForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const entry = {
+    id: editingId || (Date.now().toString(36) + Math.random().toString(36).slice(2, 6)),
+    brand: document.getElementById('f_brand').value.trim(),
+    product: document.getElementById('f_product').value.trim(),
+    asin: document.getElementById('f_asin').value.trim(),
+    category: document.getElementById('f_category').value.trim(),
+    dateReceived: document.getElementById('f_date').value,
+    value: parseFloat(document.getElementById('f_value').value) || 0,
+    collab: document.getElementById('f_collab').value,
+    elsewhere: document.getElementById('f_elsewhere').value.trim(),
+    sponsor: document.getElementById('f_sponsor').value.trim(),
+    resold: document.getElementById('f_resold').value,
+    resaleDate: document.getElementById('f_resaleDate').value,
+    resaleAmount: parseFloat(document.getElementById('f_resaleAmount').value) || 0,
+    notes: document.getElementById('f_notes').value.trim()
+  };
+
+  if (editingId) {
+    const idx = entries.findIndex(x => x.id === editingId);
+    if (idx > -1) entries[idx] = entry;
+  } else {
+    entries.push(entry);
+  }
+
+  try {
+    await upsertEntry(entry);
+  } catch (err) {
+    console.error(err);
+    alert('Could not save — please check your connection and try again.');
+    return;
+  }
+
+  resetForm();
+  render();
+});
+
+function startEdit(id) {
+  const entry = entries.find(x => x.id === id);
+  if (!entry) return;
+  editingId = id;
+  document.getElementById('f_brand').value = entry.brand;
+  document.getElementById('f_product').value = entry.product;
+  document.getElementById('f_asin').value = entry.asin;
+  document.getElementById('f_category').value = entry.category;
+  document.getElementById('f_date').value = entry.dateReceived;
+  document.getElementById('f_value').value = entry.value;
+  document.getElementById('f_collab').value = entry.collab;
+  document.getElementById('f_elsewhere').value = entry.elsewhere;
+  document.getElementById('f_sponsor').value = entry.sponsor;
+  document.getElementById('f_resold').value = entry.resold;
+  document.getElementById('f_resaleDate').value = entry.resaleDate;
+  document.getElementById('f_resaleAmount').value = entry.resaleAmount;
+  document.getElementById('f_notes').value = entry.notes;
+
+  document.getElementById('collabBox').classList.toggle('show', entry.collab === 'yes');
+  document.getElementById('resoldBox').classList.toggle('show', entry.resold === 'yes');
+
+  document.getElementById('formTitle').textContent = 'Edit Entry';
+  document.getElementById('submitBtn').textContent = 'Save Changes';
+  document.getElementById('cancelEdit').style.display = 'block';
+  document.getElementById('formCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+async function deleteEntry(id) {
+  if (!confirm('Remove this entry from the ledger?')) return;
+  try {
+    await deleteEntryRemote(id);
+  } catch (err) {
+    console.error(err);
+    alert('Could not remove — please check your connection and try again.');
+    return;
+  }
+  entries = entries.filter(x => x.id !== id);
+  render();
+}
+
+function getYears() {
+  const years = new Set(entries.map(e => (e.dateReceived || '').slice(0, 4)).filter(Boolean));
+  return Array.from(years).sort().reverse();
+}
+
+function populateYearFilter() {
+  const sel = document.getElementById('filterYear');
+  const current = sel.value;
+  const years = getYears();
+  sel.innerHTML = '<option value="all">All years</option>' +
+    years.map(y => `<option value="${y}">${y}</option>`).join('');
+  if (years.includes(current)) sel.value = current;
+}
+
+document.getElementById('filterYear').addEventListener('change', render);
+
+function render() {
+  populateYearFilter();
+  const yearFilter = document.getElementById('filterYear').value;
+  const visible = entries.filter(e => yearFilter === 'all' || (e.dateReceived || '').startsWith(yearFilter));
+
+  const totalValue = visible.reduce((s, e) => s + (e.value || 0), 0);
+  const resoldItems = visible.filter(e => e.resold === 'yes');
+  const totalResale = resoldItems.reduce((s, e) => s + (e.resaleAmount || 0), 0);
+  const totalGain = resoldItems.reduce((s, e) => s + ((e.resaleAmount || 0) - (e.value || 0)), 0);
+
+  document.getElementById('tallyBar').innerHTML = `
+    <div class="tally-cell">
+      <span class="label">Items</span>
+      <span class="value" style="color:var(--purple)">${visible.length}</span>
+    </div>
+    <div class="tally-cell">
+      <span class="label">FMV Income</span>
+      <span class="value" style="color:var(--coral)">${fmtMoney(totalValue)}</span>
+    </div>
+    <div class="tally-cell">
+      <span class="label">Resold</span>
+      <span class="value" style="color:var(--blue)">${resoldItems.length}</span>
+    </div>
+    <div class="tally-cell">
+      <span class="label">Resale Gain/Loss</span>
+      <span class="value" style="color:${totalGain >= 0 ? '#12977F' : '#FF5F8F'}">${totalGain >= 0 ? '+' : ''}${fmtMoney(totalGain)}</span>
+    </div>
+  `;
+
+  document.getElementById('entryCount').textContent =
+    `${visible.length} item${visible.length === 1 ? '' : 's'}${yearFilter !== 'all' ? ' in ' + yearFilter : ''}`;
+
+  const wrap = document.getElementById('tableWrap');
+
+  if (visible.length === 0) {
+    wrap.innerHTML = `<div class="empty-state">
+      <div class="big">No samples logged yet</div>
+      <div>Use the form on the left to add the first one.</div>
+    </div>`;
+    return;
+  }
+
+  const sorted = [...visible].sort((a, b) => (b.dateReceived || '').localeCompare(a.dateReceived || ''));
+
+  wrap.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>Received</th>
+          <th>Brand / Product</th>
+          <th>Value</th>
+          <th>Collab?</th>
+          <th>Resold</th>
+          <th>Gain/Loss</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        ${sorted.map(e => {
+          const collabLabel = e.collab === 'yes' ? 'Yes' : e.collab === 'no' ? 'No' : '—';
+          const collabPill = e.collab === 'yes'
+            ? `<span class="pill pill-yes">Yes${e.elsewhere ? ' · ' + escapeHtml(e.elsewhere) : ''}</span>`
+            : e.collab === 'no' ? `<span class="pill pill-no">No</span>` : '<span style="color:var(--ink-soft)">—</span>';
+
+          let resoldCell = '<span style="color:var(--ink-soft)">—</span>';
+          let gainCell = '—';
+          if (e.resold === 'yes') {
+            resoldCell = `${fmtMoney(e.resaleAmount)}${e.resaleDate ? '<br><span style="font-size:10.5px;color:var(--ink-soft)">' + fmtDate(e.resaleDate) + '</span>' : ''}`;
+            const gain = (e.resaleAmount || 0) - (e.value || 0);
+            gainCell = `<span class="${gain >= 0 ? 'gain' : 'loss'}">${gain >= 0 ? '+' : ''}${fmtMoney(gain)}</span>`;
+          }
+
+          return `
+          <tr>
+            <td data-label="Received">${fmtDate(e.dateReceived)}</td>
+            <td class="cell-brand">
+              <div class="brand-cell">${escapeHtml(e.brand)}</div>
+              <div style="color:var(--ink-soft); font-size:12px;">${escapeHtml(e.product || '')}</div>
+              <span class="cat-tag">${escapeHtml(e.category || 'uncategorized')}</span>
+            </td>
+            <td data-label="Value">${fmtMoney(e.value)}</td>
+            <td data-label="Collab?">${collabPill}</td>
+            <td data-label="Resold">${resoldCell}</td>
+            <td data-label="Gain/Loss">${gainCell}</td>
+            <td class="cell-actions">
+              <button class="delete-btn" onclick="startEdit('${e.id}')" style="margin-right:8px;">Edit</button>
+              <button class="delete-btn" onclick="deleteEntry('${e.id}')">Remove</button>
+            </td>
+          </tr>`;
+        }).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str || '';
+  return div.innerHTML;
+}
+
+document.getElementById('exportBtn').addEventListener('click', () => {
+  const yearFilter = document.getElementById('filterYear').value;
+  const visible = entries.filter(e => yearFilter === 'all' || (e.dateReceived || '').startsWith(yearFilter));
+
+  const headers = [
+    'Brand', 'Product', 'ASIN/Link', 'Category', 'Date Received', 'Value (FMV)',
+    'Open to Collab', 'Sold Elsewhere', 'Sponsor/PR Agency', 'Resold',
+    'Resale Date', 'Resale Amount', 'Gain/Loss', 'Notes'
+  ];
+
+  const rows = visible.map(e => {
+    const gain = e.resold === 'yes' ? ((e.resaleAmount || 0) - (e.value || 0)).toFixed(2) : '';
+    return [
+      e.brand, e.product, e.asin, e.category, e.dateReceived, e.value.toFixed(2),
+      e.collab, e.elsewhere, e.sponsor, e.resold,
+      e.resaleDate || '', e.resold === 'yes' ? e.resaleAmount.toFixed(2) : '', gain, e.notes
+    ].map(v => `"${String(v || '').replace(/"/g, '""')}"`).join(',');
+  });
+
+  const csv = [headers.join(','), ...rows].join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `sample-ledger${yearFilter !== 'all' ? '-' + yearFilter : ''}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+document.getElementById('f_date').valueAsDate = new Date();
+
+loadEntries();
+</script>
+
+</body>
+</html>
