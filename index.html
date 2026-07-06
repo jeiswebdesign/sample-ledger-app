@@ -545,6 +545,14 @@ document.getElementById('cancelEdit').addEventListener('click', () => {
   resetForm();
 });
 
+function todayDateString() {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
 function resetForm() {
   document.getElementById('entryForm').reset();
   document.getElementById('collabBox').classList.remove('show');
@@ -553,7 +561,7 @@ function resetForm() {
   document.getElementById('formTitle').textContent = 'Log a New Sample';
   document.getElementById('submitBtn').textContent = 'Add Entry';
   document.getElementById('cancelEdit').style.display = 'none';
-  document.getElementById('f_date').valueAsDate = new Date();
+  document.getElementById('f_date').value = todayDateString();
 }
 
 document.getElementById('entryForm').addEventListener('submit', async (e) => {
@@ -781,7 +789,7 @@ document.getElementById('exportBtn').addEventListener('click', () => {
   URL.revokeObjectURL(url);
 });
 
-document.getElementById('f_date').valueAsDate = new Date();
+document.getElementById('f_date').value = todayDateString();
 
 loadEntries();
 </script>
