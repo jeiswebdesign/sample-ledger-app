@@ -171,6 +171,16 @@
     font-size: 13.5px;
     color: var(--ink);
     font-family: inherit;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  input[type=text], input[type=date], input[type=number], select {
+    height: 40px;
+  }
+  input[type=date] {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   input:focus, select:focus, textarea:focus {
     outline: none;
