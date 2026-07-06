@@ -181,6 +181,32 @@
     min-width: 0;
     max-width: 100%;
     box-sizing: border-box;
+    text-align: left;
+  }
+  input[type=date]::-webkit-date-and-time-value {
+    text-align: left;
+  }
+  .date-field-wrap {
+    position: relative;
+  }
+  .date-field-wrap input[type=date] {
+    position: relative;
+    z-index: 2;
+    color: transparent;
+  }
+  .date-display-overlay {
+    position: absolute;
+    left: 13px;
+    top: 0;
+    height: 40px;
+    line-height: 38px;
+    pointer-events: none;
+    font-size: 13.5px;
+    color: var(--ink);
+    z-index: 1;
+  }
+  .date-display-overlay.placeholder-text {
+    color: #B7B2CC;
   }
   input:focus, select:focus, textarea:focus {
     outline: none;
@@ -427,7 +453,10 @@
       <input type="text" id="f_category" placeholder="e.g. Electronics > Chargers" required>
 
       <label>Date received *</label>
-      <input type="date" id="f_date" required>
+      <div class="date-field-wrap">
+        <input type="date" id="f_date" required>
+        <span class="date-display-overlay placeholder-text" id="f_date_display" aria-hidden="true">mm/dd/yyyy</span>
+      </div>
 
       <label>Value received (FMV, $) *</label>
       <input type="number" step="0.01" min="0" id="f_value" placeholder="0.00" required>
@@ -534,6 +563,20 @@ function fmtDate(d) {
   return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
+function updateDateDisplay() {
+  const val = document.getElementById('f_date').value;
+  const display = document.getElementById('f_date_display');
+  if (!val) {
+    display.textContent = 'mm/dd/yyyy';
+    display.classList.add('placeholder-text');
+  } else {
+    display.classList.remove('placeholder-text');
+    display.textContent = fmtDate(val);
+  }
+}
+document.getElementById('f_date').addEventListener('input', updateDateDisplay);
+document.getElementById('f_date').addEventListener('change', updateDateDisplay);
+
 document.getElementById('f_collab').addEventListener('change', (e) => {
   document.getElementById('collabBox').classList.toggle('show', e.target.value === 'yes');
 });
@@ -553,6 +596,8 @@ function resetForm() {
   document.getElementById('formTitle').textContent = 'Log a New Sample';
   document.getElementById('submitBtn').textContent = 'Add Entry';
   document.getElementById('cancelEdit').style.display = 'none';
+  document.getElementById('f_date').valueAsDate = new Date();
+  updateDateDisplay();
 }
 
 document.getElementById('entryForm').addEventListener('submit', async (e) => {
@@ -603,6 +648,7 @@ function startEdit(id) {
   document.getElementById('f_asin').value = entry.asin;
   document.getElementById('f_category').value = entry.category;
   document.getElementById('f_date').value = entry.dateReceived;
+  updateDateDisplay();
   document.getElementById('f_value').value = entry.value;
   document.getElementById('f_collab').value = entry.collab;
   document.getElementById('f_elsewhere').value = entry.elsewhere;
@@ -781,6 +827,7 @@ document.getElementById('exportBtn').addEventListener('click', () => {
 });
 
 document.getElementById('f_date').valueAsDate = new Date();
+updateDateDisplay();
 
 loadEntries();
 </script>
